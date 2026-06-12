@@ -4,6 +4,7 @@ import * as React from "react";
 import { SessionProvider } from "next-auth/react";
 import { AdminSidebar } from "@/components/layout/admin-sidebar";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/toast";
 import { Menu } from "lucide-react";
 
 export default function AdminLayout({
@@ -55,6 +56,7 @@ export default function AdminLayout({
           </main>
         </div>
       </div>
+      <Toaster />
     </SessionProvider>
   );
 }
