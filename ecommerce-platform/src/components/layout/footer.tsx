@@ -20,12 +20,12 @@ export function Footer({ locale, messages }: FooterProps) {
   };
 
   return (
-    <footer className="bg-muted/50 border-t">
+    <footer className="glass border-t border-white/10 mt-16">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-primary via-purple-400 to-secondary bg-clip-text text-transparent">
               ArcadePro
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
@@ -34,16 +34,16 @@ export function Footer({ locale, messages }: FooterProps) {
                 : "Leading arcade equipment manufacturer, focused on R&D and production."}
             </p>
             <div className="flex gap-3">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors glass w-10 h-10 rounded-full flex items-center justify-center">
                 <Globe className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors glass w-10 h-10 rounded-full flex items-center justify-center">
                 <MessageCircle className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors glass w-10 h-10 rounded-full flex items-center justify-center">
                 <Play className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors glass w-10 h-10 rounded-full flex items-center justify-center">
                 <Briefcase className="h-5 w-5" />
               </Link>
             </div>
@@ -81,22 +81,28 @@ export function Footer({ locale, messages }: FooterProps) {
             <h4 className="font-semibold mb-4">{t("contact.title")}</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4 shrink-0" />
+                <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                  <MapPin className="h-4 w-4 text-primary" />
+                </div>
                 <span>{locale === "zh" ? "广东省广州市番禺区" : "Panyu District, Guangzhou, China"}</span>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
-                <Phone className="h-4 w-4 shrink-0" />
+                <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                  <Phone className="h-4 w-4 text-primary" />
+                </div>
                 <span>+86 400-123-4567</span>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
-                <Mail className="h-4 w-4 shrink-0" />
+                <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                  <Mail className="h-4 w-4 text-primary" />
+                </div>
                 <span>info@example.com</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
+        <div className="border-t border-white/10 mt-8 pt-6 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} ArcadePro. All rights reserved.</p>
         </div>
       </div>

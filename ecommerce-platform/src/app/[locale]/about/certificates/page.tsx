@@ -56,30 +56,38 @@ export default function CertificatesPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/10">
         <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
+          <nav className="flex items-center gap-1.5 text-sm text-white/60">
+            <Link href="/" className="hover:text-white flex items-center gap-1 transition-colors">
               <Home className="h-3.5 w-3.5" />
               首页
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/about/intro" className="hover:text-foreground transition-colors">
+            <Link href="/about/intro" className="hover:text-white transition-colors">
               关于我们
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">证书展示</span>
+            <span className="text-white font-medium">证书展示</span>
           </nav>
         </div>
       </div>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary/10 to-secondary/10 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">资质证书</h1>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            我们拥有多项国际认证和专利技术，品质值得信赖
-          </p>
+      <div className="relative overflow-hidden py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+        <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="glass-card max-w-2xl mx-auto p-8 rounded-3xl">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+              资质证书
+            </h1>
+            <p className="text-white/70 max-w-xl mx-auto">
+              我们拥有多项国际认证和专利技术，品质值得信赖
+            </p>
+          </div>
         </div>
       </div>
 
@@ -89,27 +97,29 @@ export default function CertificatesPage() {
           {certificates.map((cert) => (
             <div
               key={cert.id}
-              className="group rounded-xl border bg-card overflow-hidden shadow-sm hover:shadow-lg transition-all cursor-pointer"
+              className="group glass-card rounded-2xl overflow-hidden hover:scale-105 transition-all duration-300 cursor-pointer"
               onClick={() => setFullscreen(cert.id)}
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={cert.imageUrl}
                   alt={cert.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium bg-black/50 px-4 py-2 rounded-full">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium glass px-4 py-2 rounded-full">
                     点击查看详情
                   </span>
                 </div>
               </div>
-              <div className="p-4">
-                <h3 className="font-semibold">{cert.title}</h3>
-                <p className="text-sm text-primary font-medium">{cert.subtitle}</p>
-                <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+              <div className="p-5">
+                <h3 className="font-semibold text-white">{cert.title}</h3>
+                <p className="text-sm bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-medium">
+                  {cert.subtitle}
+                </p>
+                <p className="text-sm text-white/60 mt-2 line-clamp-2">
                   {cert.description}
                 </p>
               </div>
@@ -121,24 +131,24 @@ export default function CertificatesPage() {
       {/* Fullscreen Modal */}
       {fullscreen !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
           onClick={() => setFullscreen(null)}
         >
           <button
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-full glass hover:bg-white/10 text-white transition-colors"
             onClick={() => setFullscreen(null)}
           >
             <X className="h-6 w-6" />
           </button>
           <div
-            className="relative max-w-2xl w-full bg-background rounded-xl overflow-hidden"
+            className="relative max-w-2xl w-full glass-card rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {certificates
               .filter((c) => c.id === fullscreen)
               .map((cert) => (
                 <div key={cert.id}>
-                  <div className="relative aspect-[4/3] bg-muted">
+                  <div className="relative aspect-[4/3]">
                     <Image
                       src={cert.imageUrl}
                       alt={cert.title}
@@ -148,9 +158,11 @@ export default function CertificatesPage() {
                     />
                   </div>
                   <div className="p-6">
-                    <h2 className="text-xl font-bold">{cert.title}</h2>
-                    <p className="text-primary font-medium">{cert.subtitle}</p>
-                    <p className="text-muted-foreground mt-4">{cert.description}</p>
+                    <h2 className="text-xl font-bold text-white">{cert.title}</h2>
+                    <p className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-medium">
+                      {cert.subtitle}
+                    </p>
+                    <p className="text-white/70 mt-4">{cert.description}</p>
                   </div>
                 </div>
               ))}

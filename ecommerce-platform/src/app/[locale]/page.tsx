@@ -112,23 +112,29 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-secondary py-20 md:py-32">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-white/10 to-transparent" />
+      <section className="relative overflow-hidden py-20 md:py-32">
+        {/* 背景渐变 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+        
+        {/* 玻璃装饰元素 */}
+        <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" />
+        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <Badge variant="secondary" className="mb-4 text-sm">
+          <div className="max-w-3xl glass-card p-8 md:p-12 rounded-3xl">
+            <Badge variant="secondary" className="mb-4 text-sm glass px-3 py-1">
               {t("heroTitle")}
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {t("heroTitle")}
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl">
+            <p className="text-lg md:text-xl text-white/70 mb-8 max-w-2xl">
               {t("heroSubtitle")}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/products">
-                <Button size="lg" variant="secondary" className="gap-2">
+                <Button size="lg" variant="secondary" className="gap-2 glass hover:bg-white/10">
                   <Search className="h-4 w-4" />
                   {t("browseProducts")}
                 </Button>
@@ -137,7 +143,7 @@ export default function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="bg-transparent text-white border-white/30 hover:bg-white/10 hover:text-white gap-2"
+                  className="glass bg-transparent text-white border-white/20 hover:bg-white/10 hover:text-white gap-2"
                 >
                   <Phone className="h-4 w-4" />
                   {t("contactUs")}
@@ -149,7 +155,7 @@ export default function HomePage() {
       </section>
 
       {/* Hot Categories */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -181,7 +187,7 @@ export default function HomePage() {
                     href={`/products?category=${cat.slug}`}
                     className="shrink-0 w-40 md:w-48 group"
                   >
-                    <div className="relative aspect-square rounded-xl overflow-hidden bg-background border shadow-sm group-hover:shadow-md transition-all">
+                    <div className="relative aspect-square rounded-xl overflow-hidden glass-card group-hover:scale-105 transition-all duration-300">
                       {cat.image ? (
                         <Image
                           src={cat.image}
@@ -197,7 +203,7 @@ export default function HomePage() {
                           </span>
                         </div>
                       )}
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                      <div className="absolute inset-x-0 bottom-0 glass p-3">
                         <p className="text-white text-sm font-medium text-center">
                           {cat.name}
                         </p>
@@ -262,7 +268,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
             {t("whyChooseUs")}
@@ -275,11 +281,11 @@ export default function HomePage() {
             {whyChooseUsItems.map((item, i) => {
               const Icon = item.icon;
               return (
-                <Card
+                <div
                   key={i}
-                  className="text-center p-6 hover:shadow-md transition-shadow"
+                  className="glass-card rounded-2xl p-6 text-center hover:scale-105 transition-all duration-300"
                 >
-                  <div className="mx-auto mb-4 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="mx-auto mb-4 w-14 h-14 rounded-full glass flex items-center justify-center">
                     <Icon className="h-7 w-7 text-primary" />
                   </div>
                   <h3 className="font-semibold mb-2">
@@ -288,7 +294,7 @@ export default function HomePage() {
                   <p className="text-sm text-muted-foreground">
                     {locale === "zh" ? item.descZh : item.descEn}
                   </p>
-                </Card>
+                </div>
               );
             })}
           </div>
@@ -307,7 +313,7 @@ export default function HomePage() {
 
           {reviews.length > 0 ? (
             <div className="relative max-w-2xl mx-auto">
-              <Card className="p-8">
+              <div className="glass-card rounded-2xl p-8">
                 <div className="flex items-center gap-1 mb-4">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
@@ -325,7 +331,7 @@ export default function HomePage() {
                   {reviews[reviewIndex]?.content || "Great products!"}
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full glass flex items-center justify-center">
                     <span className="text-primary font-semibold text-sm">
                       {(reviews[reviewIndex]?.clientName || "A")[0]}
                     </span>
@@ -341,14 +347,14 @@ export default function HomePage() {
                     )}
                   </div>
                 </div>
-              </Card>
+              </div>
 
               <div className="flex justify-center gap-4 mt-4">
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={prevReview}
-                  className="rounded-full"
+                  className="rounded-full glass"
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
@@ -356,7 +362,7 @@ export default function HomePage() {
                   variant="outline"
                   size="icon"
                   onClick={nextReview}
-                  className="rounded-full"
+                  className="rounded-full glass"
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
@@ -371,7 +377,7 @@ export default function HomePage() {
       </section>
 
       {/* Purchase Process */}
-      <section className="py-16 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
             {t("purchaseProcess")}
@@ -383,8 +389,10 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {purchaseSteps.map((item, i) => (
               <div key={i} className="relative text-center">
-                <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shadow-lg">
-                  {item.step}
+                <div className="mx-auto mb-4 w-16 h-16 rounded-full glass flex items-center justify-center text-2xl font-bold">
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    {item.step}
+                  </span>
                 </div>
                 <h3 className="font-semibold mb-1">
                   {locale === "zh" ? item.titleZh : item.titleEn}
@@ -408,7 +416,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Contact Info */}
-            <div>
+            <div className="glass-card rounded-2xl p-8">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">
                 {vt("title")}
               </h2>
@@ -416,7 +424,9 @@ export default function HomePage() {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                  <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                    <MapPin className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium text-sm">{vt("address")}</p>
                     <p className="text-sm text-muted-foreground">
@@ -425,7 +435,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                  <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                    <Phone className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium text-sm">{vt("phone")}</p>
                     <p className="text-sm text-muted-foreground">
@@ -434,7 +446,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                  <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                    <Mail className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium text-sm">{vt("email")}</p>
                     <p className="text-sm text-muted-foreground">
@@ -443,7 +457,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                  <div className="w-8 h-8 rounded-full glass flex items-center justify-center shrink-0">
+                    <Clock className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <p className="font-medium text-sm">{vt("workingHours")}</p>
                     <p className="text-sm text-muted-foreground">
@@ -455,9 +471,9 @@ export default function HomePage() {
             </div>
 
             {/* Inquiry Form */}
-            <Card className="p-6">
+            <div className="glass-card rounded-2xl p-8">
               <InquiryForm locale="zh" />
-            </Card>
+            </div>
           </div>
         </div>
       </section>

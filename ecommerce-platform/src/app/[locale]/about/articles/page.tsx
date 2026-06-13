@@ -46,30 +46,38 @@ export default function ArticlesPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/10">
         <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
+          <nav className="flex items-center gap-1.5 text-sm text-white/60">
+            <Link href="/" className="hover:text-white flex items-center gap-1 transition-colors">
               <Home className="h-3.5 w-3.5" />
               首页
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/about/intro" className="hover:text-foreground transition-colors">
+            <Link href="/about/intro" className="hover:text-white transition-colors">
               关于我们
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">文章</span>
+            <span className="text-white font-medium">文章</span>
           </nav>
         </div>
       </div>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary/10 to-secondary/10 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">文章资讯</h1>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            了解电玩行业最新动态、产品选购指南和经营技巧
-          </p>
+      <div className="relative overflow-hidden py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+        <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="glass-card max-w-2xl mx-auto p-8 rounded-3xl">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+              文章资讯
+            </h1>
+            <p className="text-white/70 max-w-xl mx-auto">
+              了解电玩行业最新动态、产品选购指南和经营技巧
+            </p>
+          </div>
         </div>
       </div>
 
@@ -79,7 +87,7 @@ export default function ArticlesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 9 }).map((_, i) => (
               <div key={i} className="space-y-3">
-                <Skeleton className="aspect-video rounded-xl" />
+                <Skeleton className="aspect-video rounded-2xl" />
                 <Skeleton className="h-5 w-3/4" />
                 <Skeleton className="h-4 w-full" />
                 <Skeleton className="h-3 w-1/3" />
@@ -95,16 +103,16 @@ export default function ArticlesPage() {
                 <Link
                   key={article.id}
                   href={`/about/articles/${article.id}`}
-                  className="group rounded-xl border bg-card overflow-hidden shadow-sm hover:shadow-lg transition-all"
+                  className="group glass-card rounded-2xl overflow-hidden hover:scale-105 transition-all duration-300"
                 >
-                  <div className="relative aspect-video overflow-hidden bg-muted">
+                  <div className="relative aspect-video overflow-hidden">
                     {article.coverImage ? (
                       <Image
                         src={article.coverImage}
                         alt={article.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     ) : (
                       <div className="flex items-center justify-center h-full bg-gradient-to-br from-primary/20 to-secondary/20">
@@ -114,11 +122,11 @@ export default function ArticlesPage() {
                       </div>
                     )}
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold group-hover:text-primary transition-colors line-clamp-2">
+                  <div className="p-5">
+                    <h3 className="font-semibold text-white group-hover:text-primary transition-colors line-clamp-2">
                       {article.title}
                     </h3>
-                    <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2 mt-2 text-xs text-white/60">
                       <Calendar className="h-3 w-3" />
                       <span>{formatDate(article.publishedAt || article.createdAt)}</span>
                     </div>
@@ -127,7 +135,7 @@ export default function ArticlesPage() {
                         {article.tags.split(",").map((tag, i) => (
                           <span
                             key={i}
-                            className="text-xs bg-muted px-2 py-0.5 rounded-full"
+                            className="text-xs glass px-2 py-0.5 rounded-full text-white/70"
                           >
                             {tag.trim()}
                           </span>

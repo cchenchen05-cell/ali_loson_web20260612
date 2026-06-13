@@ -54,30 +54,38 @@ export default function FactoryPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/10">
         <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
+          <nav className="flex items-center gap-1.5 text-sm text-white/60">
+            <Link href="/" className="hover:text-white flex items-center gap-1 transition-colors">
               <Home className="h-3.5 w-3.5" />
               首页
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/about/intro" className="hover:text-foreground transition-colors">
+            <Link href="/about/intro" className="hover:text-white transition-colors">
               关于我们
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">工厂展示</span>
+            <span className="text-white font-medium">工厂展示</span>
           </nav>
         </div>
       </div>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary/10 to-secondary/10 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">工厂展示</h1>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            走进我们的现代化生产基地，了解电玩设备的生产过程
-          </p>
+      <div className="relative overflow-hidden py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+        <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="glass-card max-w-2xl mx-auto p-8 rounded-3xl">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+              工厂展示
+            </h1>
+            <p className="text-white/70 max-w-xl mx-auto">
+              走进我们的现代化生产基地，了解电玩设备的生产过程
+            </p>
+          </div>
         </div>
       </div>
 
@@ -87,38 +95,41 @@ export default function FactoryPage() {
           {factoryAreas.map((area) => {
             const Icon = area.icon;
             return (
-              <Card key={area.id} className="overflow-hidden group hover:shadow-lg transition-all">
-                <div className="relative aspect-video overflow-hidden bg-muted">
+              <div key={area.id} className="glass-card rounded-2xl overflow-hidden group hover:scale-105 transition-all duration-300">
+                <div className="relative aspect-video overflow-hidden">
                   <Image
                     src={area.imageUrl}
                     alt={area.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-4">
+                <div className="p-5">
                   <div className="flex items-center gap-2 mb-2">
                     <Icon className="h-5 w-5 text-primary" />
-                    <h3 className="font-semibold">{area.title}</h3>
+                    <h3 className="font-semibold text-white">{area.title}</h3>
                   </div>
-                  <p className="text-sm text-muted-foreground">{area.description}</p>
+                  <p className="text-sm text-white/60">{area.description}</p>
                 </div>
-              </Card>
+              </div>
             );
           })}
         </div>
       </div>
 
       {/* Gallery */}
-      <div className="bg-muted/30 py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center mb-8">工厂实景</h2>
+      <div className="relative py-12 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+        <div className="container mx-auto px-4 relative z-10">
+          <h2 className="text-2xl font-bold text-center mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            工厂实景
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {factoryImages.map((img, i) => (
               <div
                 key={i}
-                className="group relative aspect-square rounded-xl overflow-hidden bg-muted cursor-pointer"
+                className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer glass-card hover:scale-105 transition-all duration-300"
                 onClick={() => setFullscreen(i)}
               >
                 <Image
@@ -128,7 +139,7 @@ export default function FactoryPage() {
                   sizes="(max-width: 640px) 50vw, 25vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end p-3">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-end p-3">
                   <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                     {img.title}
                   </span>
@@ -142,11 +153,11 @@ export default function FactoryPage() {
       {/* Fullscreen Modal */}
       {fullscreen !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
           onClick={() => setFullscreen(null)}
         >
           <button
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute top-4 right-4 p-2 rounded-full glass hover:bg-white/10 text-white transition-colors"
             onClick={() => setFullscreen(null)}
           >
             <X className="h-6 w-6" />

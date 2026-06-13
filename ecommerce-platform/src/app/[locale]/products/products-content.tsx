@@ -132,7 +132,7 @@ export function ProductsContent() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
@@ -149,18 +149,23 @@ export function ProductsContent() {
         {/* Search & Filter Bar */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <form onSubmit={handleSearch} className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="搜索产品..."
-              className="pl-10"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
+            <div className="gemini-flow-pipe rounded-xl p-[1px]">
+              <div className="relative rounded-xl bg-[#131314] px-4 py-2 flex items-center gap-3">
+                <Search className="h-4 w-4 text-white/40 shrink-0" />
+                <input
+                  type="search"
+                  placeholder="搜索产品..."
+                  className="flex-1 bg-transparent border-0 outline-none text-white text-sm placeholder-white/40"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+              </div>
+            </div>
           </form>
           <div className="flex gap-3">
             <Button
               variant="outline"
-              className="lg:hidden gap-2"
+              className="lg:hidden gap-2 glass"
               onClick={() => setFilterOpen(!filterOpen)}
             >
               <SlidersHorizontal className="h-4 w-4" />
@@ -195,13 +200,13 @@ export function ProductsContent() {
             )}
 
             <h3 className="font-semibold mb-3 text-sm hidden lg:block">分类筛选</h3>
-            <div className="space-y-1">
+            <div className="glass-card rounded-xl p-3 space-y-1">
               {categories.map((cat) => (
                 <label
                   key={cat.id}
                   className={cn(
-                    "flex items-center gap-2 px-2 py-1.5 rounded-md text-sm cursor-pointer transition-colors hover:bg-accent",
-                    selectedCategories.has(cat.slug) && "bg-primary/5 text-primary font-medium"
+                    "flex items-center gap-2 px-2 py-1.5 rounded-md text-sm cursor-pointer transition-colors hover:bg-white/5",
+                    selectedCategories.has(cat.slug) && "bg-primary/10 text-primary font-medium"
                   )}
                 >
                   <input
@@ -217,7 +222,7 @@ export function ProductsContent() {
 
             {filterOpen && (
               <div className="mt-6 lg:hidden">
-                <Button className="w-full" onClick={() => setFilterOpen(false)}>
+                <Button className="w-full glass" onClick={() => setFilterOpen(false)}>
                   应用筛选
                 </Button>
               </div>

@@ -18,17 +18,60 @@ interface ProductCardProps {
 export function ProductCard({ product, locale, onToggleFavorite, className }: ProductCardProps) {
   const coverImage = product.coverImage || "/placeholder-product.svg";
   const categoryName = typeof product.category?.name === "string" ? product.category.name : "";
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const syncPointer = (e: PointerEvent) => {
+      const { clientX: x, clientY: y } = e;
+      if (cardRef.current) {
+        cardRef.current.style.setProperty('--x', x.toFixed(2));
+        cardRef.current.style.setProperty('--xp', (x / window.innerWidth).toFixed(2));
+        cardRef.current.style.setProperty('--y', y.toFixed(2));
+        cardRef.current.style.setProperty('--yp', (y / window.innerHeight).toFixed(2));
+      }
+    };
+
+    document.addEventListener('pointermove', syncPointer);
+    return () => document.removeEventListener('pointermove', syncPointer);
+  }, []);
 
   return (
     <div
+      ref={cardRef}
       className={cn(
-        "group relative rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]",
+        "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02]",
         className
       )}
+      style={{
+        '--base': 263,
+        '--spread': 300,
+        '--radius': 16,
+        '--border': 2,
+        '--backdrop': 'hsl(0 0% 60% / 0.12)',
+        '--backup-border': 'var(--backdrop)',
+        '--size': 200,
+        '--outer': 1,
+        '--border-size': 'calc(var(--border, 2) * 1px)',
+        '--spotlight-size': 'calc(var(--size, 150) * 1px)',
+        '--hue': 'calc(var(--base) + (var(--xp, 0) * var(--spread, 0)))',
+        backgroundImage: `radial-gradient(
+          var(--spotlight-size) var(--spotlight-size) at
+          calc(var(--x, 0) * 1px)
+          calc(var(--y, 0) * 1px),
+          hsl(var(--hue, 210) calc(var(--saturation, 100) * 1%) calc(var(--lightness, 70) * 1%) / var(--bg-spot-opacity, 0.1)), transparent
+        )`,
+        backgroundColor: 'var(--backdrop, transparent)',
+        backgroundSize: 'calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)))',
+        backgroundPosition: '50% 50%',
+        backgroundAttachment: 'fixed',
+        border: 'var(--border-size) solid var(--backup-border)',
+        position: 'relative',
+        touchAction: 'none',
+      } as React.CSSProperties}
     >
       <Link href={`/${locale}/products/${product.id}`} className="block">
         {/* Image */}
-        <div className="relative aspect-square overflow-hidden bg-muted">
+        <div className="relative aspect-square overflow-hidden bg-muted/50">
           <Image
             src={coverImage}
             alt={product.name}
@@ -37,20 +80,23 @@ export function ProductCard({ product, locale, onToggleFavorite, className }: Pr
             className="object-cover transition-transform duration-500 group-hover:scale-110"
           />
           {categoryName && (
-            <Badge variant="secondary" className="absolute top-2 left-2 z-10">
+            <Badge 
+              variant="secondary" 
+              className="absolute top-3 left-3 z-10 glass-card px-3 py-1 text-xs"
+            >
               {categoryName}
             </Badge>
           )}
         </div>
 
         {/* Content */}
-        <div className="p-4">
-          <h3 className="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors">
+        <div className="p-4 glass-card">
+          <h3 className="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors mb-2">
             {product.name}
           </h3>
-          <div className="mt-2 flex items-center justify-between">
+          <div className="flex items-center justify-between">
             {product.price != null ? (
-              <span className="text-lg font-bold text-primary">
+              <span className="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                 {locale === "zh" ? "¥" : "$"}
                 {product.price.toLocaleString()}
               </span>
@@ -75,10 +121,10 @@ export function ProductCard({ product, locale, onToggleFavorite, className }: Pr
           onToggleFavorite?.(product);
         }}
         className={cn(
-          "absolute top-2 right-2 z-10 p-1.5 rounded-full transition-all",
+          "absolute top-3 right-3 z-10 p-2 rounded-full transition-all glass-card",
           product.isFavorite
-            ? "bg-red-500 text-white"
-            : "bg-background/80 text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-red-500"
+            ? "bg-red-500/80 text-white"
+            : "text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-red-500"
         )}
         aria-label={product.isFavorite ? "Remove from favorites" : "Add to favorites"}
       >

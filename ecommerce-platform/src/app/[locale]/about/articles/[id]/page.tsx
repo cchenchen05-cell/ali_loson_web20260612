@@ -83,23 +83,23 @@ export default function ArticleDetailPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/10">
         <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground flex-wrap">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
+          <nav className="flex items-center gap-1.5 text-sm text-white/60 flex-wrap">
+            <Link href="/" className="hover:text-white flex items-center gap-1 transition-colors">
               <Home className="h-3.5 w-3.5" />
               首页
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/about/intro" className="hover:text-foreground transition-colors">
+            <Link href="/about/intro" className="hover:text-white transition-colors">
               关于我们
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/about/articles" className="hover:text-foreground transition-colors">
+            <Link href="/about/articles" className="hover:text-white transition-colors">
               文章
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium truncate max-w-[200px]">
+            <span className="text-white font-medium truncate max-w-[200px]">
               {article.title}
             </span>
           </nav>
@@ -110,7 +110,7 @@ export default function ArticleDetailPage() {
         <article className="max-w-3xl mx-auto">
           {/* Cover Image */}
           {article.coverImage && (
-            <div className="relative aspect-video rounded-xl overflow-hidden mb-8 bg-muted">
+            <div className="relative aspect-video rounded-2xl overflow-hidden mb-8 glass-card">
               <Image
                 src={article.coverImage}
                 alt={article.title}
@@ -123,10 +123,12 @@ export default function ArticleDetailPage() {
           )}
 
           {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-bold mb-4">{article.title}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mb-4 text-white bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+            {article.title}
+          </h1>
 
           {/* Meta */}
-          <div className="flex items-center gap-4 mb-8 text-sm text-muted-foreground">
+          <div className="flex items-center gap-4 mb-8 text-sm text-white/60">
             <span className="flex items-center gap-1">
               <Calendar className="h-3.5 w-3.5" />
               {formatDate(article.publishedAt || article.createdAt)}
@@ -139,7 +141,7 @@ export default function ArticleDetailPage() {
               {article.tags.split(",").map((tag, i) => (
                 <span
                   key={i}
-                  className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground"
+                  className="text-xs glass px-3 py-1 rounded-full text-white/70"
                 >
                   #{tag.trim()}
                 </span>
@@ -149,18 +151,18 @@ export default function ArticleDetailPage() {
 
           {/* Content */}
           {article.content && (
-            <Card className="p-6 md:p-8">
+            <div className="glass-card rounded-2xl p-6 md:p-8">
               <div
-                className="prose prose-sm max-w-none"
+                className="prose prose-sm max-w-none prose-invert"
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
-            </Card>
+            </div>
           )}
 
           {/* Back */}
-          <div className="mt-10 pt-6 border-t">
+          <div className="mt-10 pt-6 border-t border-white/10">
             <Link href="/about/articles">
-              <Button variant="outline" className="gap-2">
+              <Button variant="outline" className="gap-2 glass border-white/20 hover:bg-white/10">
                 <ArrowLeft className="h-4 w-4" />
                 返回文章列表
               </Button>

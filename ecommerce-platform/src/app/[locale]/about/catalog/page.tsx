@@ -53,34 +53,41 @@ export default function CatalogPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/5">
         <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
+          <nav className="flex items-center gap-1.5 text-sm text-white/50">
+            <Link href="/" className="hover:text-white flex items-center gap-1 transition-colors">
               <Home className="h-3.5 w-3.5" />
               首页
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <Link href="/about/intro" className="hover:text-foreground transition-colors">
+            <Link href="/about/intro" className="hover:text-white transition-colors">
               关于我们
             </Link>
             <ChevronRight className="h-3.5 w-3.5" />
-            <span className="text-foreground font-medium">产品画册</span>
+            <span className="text-white font-medium">产品画册</span>
           </nav>
         </div>
       </div>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary/10 to-secondary/10 py-12">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">产品画册</h1>
-          <p className="text-muted-foreground max-w-xl mx-auto mb-6">
-            浏览我们的产品系列，了解各类电玩设备的详细信息
-          </p>
-          <Button variant="outline" size="lg" className="gap-2">
-            <Download className="h-4 w-4" />
-            下载完整画册 (PDF)
-          </Button>
+      <div className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-secondary/20" />
+        <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 rounded-full bg-secondary/10 blur-3xl" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="glass-card max-w-2xl mx-auto p-8 rounded-3xl">
+            <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+              产品画册
+            </h1>
+            <p className="text-white/70 max-w-xl mx-auto mb-6">
+              浏览我们的产品系列，了解各类电玩设备的详细信息
+            </p>
+            <Button variant="outline" size="lg" className="gap-2 glass border-white/10 text-white hover:bg-white/10">
+              <Download className="h-4 w-4" />
+              下载完整画册 (PDF)
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -91,20 +98,20 @@ export default function CatalogPage() {
             <Link
               key={i}
               href={`/products?category=${encodeURIComponent(item.title)}`}
-              className="group rounded-xl border bg-card overflow-hidden shadow-sm hover:shadow-lg transition-all"
+              className="group glass-card rounded-2xl overflow-hidden hover:scale-105 transition-all duration-300"
             >
-              <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+              <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src={item.coverUrl}
                   alt={item.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-4">
                   <h3 className="text-white font-bold text-lg">{item.title}</h3>
-                  <p className="text-white/70 text-sm mt-1">{item.description}</p>
+                  <p className="text-white/60 text-sm mt-1">{item.description}</p>
                 </div>
               </div>
             </Link>

@@ -168,7 +168,7 @@ export default function ProductDetailPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-muted/30 border-b">
+      <div className="glass border-b border-white/10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-1.5 text-sm text-muted-foreground flex-wrap">
             <Link href="/" className="hover:text-foreground flex items-center gap-1 transition-colors">
@@ -203,7 +203,7 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {/* Image Gallery */}
           <div>
-            <div className="relative aspect-square rounded-xl overflow-hidden bg-muted mb-4 border">
+            <div className="relative aspect-square rounded-2xl overflow-hidden glass-card mb-4">
               <Image
                 src={images[activeImage] || "/placeholder-product.svg"}
                 alt={product.name}
@@ -213,7 +213,7 @@ export default function ProductDetailPage() {
                 priority
               />
               {product.featured && (
-                <Badge className="absolute top-3 left-3">热门</Badge>
+                <Badge className="absolute top-3 left-3 glass">热门</Badge>
               )}
             </div>
 
@@ -224,7 +224,7 @@ export default function ProductDetailPage() {
                     key={i}
                     onClick={() => setActiveImage(i)}
                     className={cn(
-                      "relative w-20 h-20 rounded-lg overflow-hidden border-2 shrink-0 transition-all",
+                      "relative w-20 h-20 rounded-lg overflow-hidden border-2 shrink-0 transition-all glass-card",
                       i === activeImage
                         ? "border-primary ring-1 ring-primary"
                         : "border-transparent hover:border-muted-foreground/30"
@@ -244,7 +244,7 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Product Info */}
-          <div>
+          <div className="glass-card rounded-2xl p-8">
             <h1 className="text-2xl md:text-3xl font-bold mb-4">{product.name}</h1>
 
             {product.summary && (
@@ -253,7 +253,7 @@ export default function ProductDetailPage() {
 
             <div className="flex items-baseline gap-3 mb-6">
               {product.price != null ? (
-                <span className="text-3xl font-bold text-primary">
+                <span className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   ¥{product.price.toLocaleString()}
                 </span>
               ) : (
@@ -267,9 +267,9 @@ export default function ProductDetailPage() {
                 size="lg"
                 onClick={handleLike}
                 className={cn(
-                  "gap-2 transition-all",
+                  "gap-2 transition-all glass",
                   likeAnimating && "scale-125",
-                  isLiked && "bg-red-500 hover:bg-red-600 border-red-500"
+                  isLiked && "bg-red-500/80 hover:bg-red-600/80 border-red-500/50"
                 )}
               >
                 <Heart
@@ -285,13 +285,13 @@ export default function ProductDetailPage() {
                 {isLiked ? "已收藏" : "加入收藏"}
               </Button>
 
-              <Button variant="ghost" size="icon" className="text-muted-foreground">
+              <Button variant="ghost" size="icon" className="text-muted-foreground glass">
                 <Share2 className="h-5 w-5" />
               </Button>
             </div>
 
             <div className="space-y-3">
-              <Button size="lg" className="w-full sm:w-auto" onClick={() => setShowInquiry(!showInquiry)}>
+              <Button size="lg" className="w-full sm:w-auto glass" onClick={() => setShowInquiry(!showInquiry)}>
                 立即咨询
               </Button>
             </div>
@@ -300,21 +300,21 @@ export default function ProductDetailPage() {
 
         {/* Inquiry Form (Collapsible) */}
         {showInquiry && (
-          <Card className="mb-12 p-6">
+          <div className="glass-card rounded-2xl p-8 mb-12">
             <InquiryForm locale="zh" preSelectedProductIds={[product.id]} />
-          </Card>
+          </div>
         )}
 
         {/* Description */}
         {product.description && (
           <section className="mb-12">
             <h2 className="text-xl font-bold mb-4">产品描述</h2>
-            <Card className="p-6">
+            <div className="glass-card rounded-2xl p-6">
               <div
                 className="prose prose-sm max-w-none"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
-            </Card>
+            </div>
           </section>
         )}
 
@@ -322,8 +322,8 @@ export default function ProductDetailPage() {
         {Object.keys(specifications).length > 0 && (
           <section className="mb-12">
             <h2 className="text-xl font-bold mb-4">产品参数</h2>
-            <Card>
-              <div className="divide-y">
+            <div className="glass-card rounded-2xl overflow-hidden">
+              <div className="divide-y divide-white/10">
                 {Object.entries(specifications).map(([key, value]) => (
                   <div
                     key={key}
@@ -334,7 +334,7 @@ export default function ProductDetailPage() {
                   </div>
                 ))}
               </div>
-            </Card>
+            </div>
           </section>
         )}
 

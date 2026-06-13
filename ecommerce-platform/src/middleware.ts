@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import createMiddleware from "next-intl/middleware";
 
-const locales = ["zh", "en"];
+const intlMiddleware = createMiddleware({
+  locales: ["zh", "en"],
+  defaultLocale: "zh",
+  localePrefix: "always",
+});
 
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -31,18 +36,8 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Frontend internationalization
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  if (pathnameHasLocale) return NextResponse.next();
-
-  // Redirect to default locale if no locale prefix
-  const locale = req.cookies.get("NEXT_LOCALE")?.value || "zh";
-  const newUrl = new URL(`/${locale}${pathname}`, req.url);
-  newUrl.search = req.nextUrl.search;
-  return NextResponse.redirect(newUrl);
+  // Use next-intl middleware for frontend routes
+  return intlMiddleware(req);
 }
 
 export const config = {
